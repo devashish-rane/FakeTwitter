@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{forwardRef}from 'react'
 import { Avatar, Button } from '@material-ui/core'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import "./Post.css";
@@ -8,28 +8,30 @@ import ShareIcon from '@material-ui/icons/Share';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-function Post(displayName,username,text,image,avatar,verified,timestamp) 
+const  Post = forwardRef(function({displayName,
+    username,text,image,
+    avatar,verified},ref) 
     {
     return (
-        <div className="post">
+        <div className="post" ref={ref}>
             {/* postavatar is the right flex part hence extra div is taken */}
             <div className="postAvatar">
-                <Avatar src="https://cineblitz.in/wp-content/uploads/2019/05/Amitabh-Bachchan-Deewar.jpg" ></Avatar>
+                <Avatar src={avatar} ></Avatar>
             </div>
             {/*  */}
             <div className="postBody">
                 <div className="postHeader">
                      <div className="postHeaderText">
-                        <h3>Brodcast <span>  <CheckCircleIcon className="verified"/> </span></h3>
-                        <h4 className="attherateHeader">@BBC news</h4>
+                                 <h3> {displayName}<span> { verified && <CheckCircleIcon className="verified"/> } </span></h3>
+                                <h4 className="attherateHeader">{'@'+username}</h4>
                     </div>
                 </div>    
                 {/*  */}
                 <div className="postDescription">
-                   <p>This is the sample description of the given tweet...</p>
+                        <p>{text}</p>
                 </div>
                 {/*  */}
-                <img className="postImage" src="https://earthsky.org/upl/2018/12/comet-wirtanen-Jack-Fusco-dec-2018-Anza-Borrego-desert-CA-e1544613895713.jpg"/>
+                <img className="postImage" src={image}/>
                 {/*  */}
 
 
@@ -43,6 +45,6 @@ function Post(displayName,username,text,image,avatar,verified,timestamp)
             </div>
         </div>
     )
-}
+})
 
 export default Post
